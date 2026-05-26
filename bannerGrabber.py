@@ -1,19 +1,4 @@
-"""
-banner_grabber.py
------------------
-Grab service banners from open ports to identify running software.
 
-Many services send a greeting message when you connect — this is the "banner".
-Examples:
-  SSH   → "SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.6"
-  FTP   → "220 vsftpd 3.0.5"
-  SMTP  → "220 mail.example.com ESMTP Postfix"
-  HTTP  → reads the Server header from a GET response
-
-Usage:
-    from scanner.banner_grabber import grab_banner, grab_banners
-    banner = grab_banner("192.168.1.1", 22)
-"""
 
 import socket
 

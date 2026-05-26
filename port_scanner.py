@@ -1,6 +1,6 @@
 
 
-import socket #core networking ibrary
+import socket #core networking library - gives the file access to networking functions.
 #concurrent.futires gives us ThreadPoolExecutor, which runs many port checks at the same time instead of one by one
 import concurrent.futures 
 # is just for recording when the scan started and how long it took.
@@ -33,7 +33,7 @@ COMMON_SERVICES = {
 def scan_port(host: str, port: int, timeout: float = 1.0) -> dict | None:
    
     try:
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:#AF(stands for address famiily it tells the socketwhich adress is being used) AF_INET means IPV4 SOCKET_STEAM means TCP .Create a socket that uses IPv4 addresses and connects via TCP
             s.settimeout(timeout) #s.settimeout(timeout) — if the port doesn't respond within 1 second, give up.
             result = s.connect_ex((host, port))
             if result == 0:
@@ -51,10 +51,7 @@ def scan_port(host: str, port: int, timeout: float = 1.0) -> dict | None:
 
 
 def resolve_host(host: str) -> str | None:
-    """
-    Resolve a hostname to an IP address.
-    Returns None if resolution fails.
-    """
+   
     try:
         return socket.gethostbyname(host)
     except socket.gaierror:
@@ -69,20 +66,7 @@ def scan_range(
     max_threads: int = 100,
     verbose: bool = False,
 ) -> dict:
-    """
-    Scan a range of TCP ports on a target host concurrently.
-
-    Args:
-        host:        Target IP address or hostname
-        start_port:  First port to scan (default: 1)
-        end_port:    Last port to scan (default: 1024)
-        timeout:     Seconds to wait per port (default: 1.0)
-        max_threads: Concurrent threads (default: 100)
-        verbose:     Print each open port as it's found
-
-    Returns:
-        A dict with scan metadata and a list of open port results.
-    """
+  
     # Resolve hostname to IP
     ip = resolve_host(host)
     if not ip:

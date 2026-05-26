@@ -15,7 +15,7 @@ import socket
 import ipaddress
 import concurrent.futures
 import subprocess
-import platform
+import platform #retrive data about underlying hardware, operating system, and interpreter version information
 from datetime import datetime
 
 
@@ -24,11 +24,11 @@ def ping_host_subprocess(ip: str, timeout: int = 1) -> dict | None:
     Ping a host using the system's ping command.
     Works on Linux, macOS, and Windows without root privileges.
     """
-    system = platform.system().lower()
+    system = platform.system().lower()#return os name in lowercase, e.g. 'windows', 'linux', 'darwin' (macOS)
 
     # Build the ping command per OS
     if system == "windows":
-        cmd = ["ping", "-n", "1", "-w", str(timeout * 1000), ip]
+        cmd = ["ping", "-n", "1", "-w", str(timeout * 1000), ip]#-w is timeout in milliseconds on Windows, -n is number of echo requests in our case send 1 echo request
     else:
         cmd = ["ping", "-c", "1", "-W", str(timeout), ip]
 
